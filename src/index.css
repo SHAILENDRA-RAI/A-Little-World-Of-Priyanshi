@@ -62,3 +62,312 @@ p { font-size: 16px; line-height: 1.7; }
 @keyframes appear { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } } @keyframes dark-arrive { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } } @keyframes light-expand { 0% { opacity: .65; box-shadow: 0 0 25px 10px #ffe1a2, 0 0 0 0 #ffe1a2; } 45% { opacity: 1; box-shadow: 0 0 80px 35px #ffe1a2, 0 0 0 25vw #ffe1a2; } 100% { opacity: 1; box-shadow: 0 0 100px 50px #fff4d3, 0 0 0 110vw #f4c8ca; } } @keyframes light-content-fade { to { opacity: 0; transform: scale(.96); } } @keyframes pastel-arrive { from { opacity: 0; } to { opacity: 1; } } @keyframes star-drift { 50% { transform: translate(10px, -8px); opacity: .6; } } @keyframes twinkle { 50% { opacity: .15; transform: scale(.5); } } @keyframes float { 50% { transform: translateY(-18px) rotate(30deg); } } @keyframes wave { 50% { transform: translateY(-6px) rotate(3deg); } } @keyframes grow { from { width: 0; } } @keyframes pulse { 50% { box-shadow: 0 0 0 8px #4b2d2822; } }
 @media (max-width: 800px) { h2 { font-size: clamp(45px, 13vw, 72px); }.site-nav nav { display: none; }.site-nav { padding: 18px 20px; }.opening-kicker { top: 20px; left: 20px; max-width: 150px; line-height: 1.5; }.opening-footer { right: 20px; bottom: 20px; }.opening-content h1 { font-size: clamp(60px, 18vw, 120px); }.opening-copy { font-size: 19px; }.cake-section, .hero-section, .report-section { flex-direction: column; align-items: flex-start; padding-top: 120px; }.cake-copy, .hero-copy, .report-copy { width: 100%; }.birthday-cake { width: min(90vw, 390px); margin: 20px auto 70px; }.cake-section > .panda-doodle { left: 2%; }.hero-section { padding-bottom: 0; }.hero-portrait { width: 100%; height: 500px; align-self: center; }.personality-grid { display: flex; flex-direction: column; }.personality-card, .personality-card--leader, .personality-card--panda, .personality-card--foodie, .personality-card--kindness { min-height: 560px; }.personality-card--leader img, .personality-card--kindness img { width: 58%; }.personality-card--panda img { right: -2%; }.personality-card--kindness img { right: 2%; }.timeline-intro > .panda-doodle { right: 0; bottom: -60px; transform: scale(.7); }.timeline-entry--dark { margin: 0 -28px; padding-right: 28px; padding-left: 28px; }.report-card { width: min(85vw, 350px); align-self: center; }.letter-section { display: block; }.letter-intro { margin-bottom: 80px; }.envelope { min-height: 340px; }.envelope-paper { right: 4%; left: 4%; }.envelope--open { min-height: 840px; }.envelope--open .envelope-paper { height: 780px; max-height: calc(100svh - 45px); padding: 30px 24px; transform: translateY(-265px); }.memory-wall { grid-template-columns: repeat(2, 1fr); gap: 25px 12px; }.memory-photo--1, .memory-photo--2, .memory-photo--3, .memory-photo--4, .memory-photo--5, .memory-photo--6 { grid-column: auto; margin-top: 0; }.memory-photo--2, .memory-photo--5 { margin-top: 35px; }.memory-photo { padding: 8px 8px 36px; }.memory-photo span { font-size: 17px; }.memory-photo i { bottom: 9px; left: 8px; font-size: 7px; }.lightbox { grid-template-columns: 36px minmax(0, 1fr) 36px; gap: 5px; padding: 30px 10px; }.lightbox img { width: 100%; max-height: 65vh; }.lightbox-arrow { width: 34px; height: 34px; }.lightbox figcaption { font-size: 22px; } }
 @media (prefers-reduced-motion: reduce) { *, *:before, *:after { scroll-behavior: auto !important; animation-duration: .001ms !important; transition-duration: .001ms !important; } }
+
+/* ============================================
+   PRIYANSHI'S BIRTHDAY LETTER
+   CLOSED ENVELOPE → OPEN LETTER ANIMATION
+============================================ */
+
+/* Main envelope container */
+
+.envelope {
+  position: relative;
+  min-height: 450px;
+  perspective: 1000px;
+  isolation: isolate;
+  cursor: pointer;
+  overflow: visible;
+}
+
+.envelope--open {
+  min-height: 850px;
+}
+
+/* Pink envelope body */
+
+.envelope::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 38px 0 0;
+
+  border: 2px solid #9e5d63;
+
+  background: linear-gradient(
+    145deg,
+    #f3b1bb,
+    #e88d9c
+  );
+
+  box-shadow: 13px 15px 0 #e9c4b9;
+}
+
+/* Front triangular envelope pocket */
+
+.envelope::after {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  inset: 38px 0 0;
+
+  background: linear-gradient(
+    145deg,
+    #d97889,
+    #e995a2
+  );
+
+  clip-path: polygon(
+    0 0,
+    50% 58%,
+    100% 0,
+    100% 100%,
+    0 100%
+  );
+}
+
+/* Letter paper - hidden inside envelope initially */
+
+.envelope-paper {
+  position: absolute;
+  z-index: 1;
+
+  top: 52px;
+  left: 8%;
+  right: 8%;
+
+  height: 330px;
+  padding: 38px 35px;
+
+  overflow: hidden;
+  opacity: 0;
+
+  background: #fffaf0;
+
+  box-shadow: 0 15px 25px #4b2d2820;
+
+  transform: translateY(45px) scale(.96);
+
+  transition:
+    transform .8s ease,
+    height .8s ease,
+    opacity .5s ease;
+
+  pointer-events: none;
+}
+
+/* Letter slides out when envelope opens */
+
+.envelope--open .envelope-paper {
+  z-index: 7;
+
+  height: min(690px, calc(100vh - 110px));
+  max-height: calc(100vh - 110px);
+
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  opacity: 1;
+
+  transform: translateY(-155px) scale(1);
+
+  pointer-events: auto;
+}
+
+/* Envelope flap */
+
+.envelope-flap {
+  position: absolute;
+  z-index: 4;
+
+  top: 38px;
+  left: 0;
+  right: 0;
+
+  height: 190px;
+
+  background: #ed9eaa;
+
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    50% 100%
+  );
+
+  transform-origin: top;
+  backface-visibility: hidden;
+
+  transition: transform .75s ease;
+}
+
+/* Flap opens backwards */
+
+.envelope--open .envelope-flap {
+  z-index: 4;
+  transform: rotateX(180deg);
+}
+
+/* Wax seal */
+
+.wax-seal {
+  position: absolute;
+  z-index: 5;
+
+  top: 145px;
+  left: calc(50% - 24px);
+
+  display: grid;
+  width: 48px;
+  height: 48px;
+
+  place-items: center;
+
+  color: #fff8f0;
+  border-radius: 50%;
+
+  background: #aa5b63;
+
+  box-shadow: 0 3px 10px #713b4540;
+
+  transition:
+    opacity .4s ease,
+    transform .4s ease;
+}
+
+/* Seal disappears */
+
+.envelope--open .wax-seal {
+  opacity: 0;
+  transform: scale(.6);
+}
+
+/* Clickable envelope surface */
+
+.envelope-trigger {
+  position: absolute;
+  z-index: 6;
+
+  inset: 30px 0 0;
+
+  width: 100%;
+  min-height: 390px;
+
+  padding: 0;
+  border: 0;
+
+  background: transparent;
+
+  cursor: pointer;
+}
+
+.envelope-trigger:hover {
+  background: transparent;
+}
+
+.envelope-trigger:focus-visible {
+  outline: 3px solid #a85d68;
+  outline-offset: 7px;
+}
+
+/* Disable envelope click after opening */
+
+.envelope--open .envelope-trigger {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Accessible hidden text */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+
+  padding: 0;
+  margin: -1px;
+
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Letter typography */
+
+.letter-content {
+  font-family: 'DM Serif Display', serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #4b2d28;
+}
+
+.letter-content p {
+  margin-bottom: 18px;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.letter-content strong {
+  color: #b86672;
+}
+
+.letter-content .signature {
+  font-family: Nunito, sans-serif;
+  font-size: 13px;
+}
+
+.letter-content .signature em {
+  font-family: Caveat, cursive;
+  color: #a26761;
+  font-size: 23px;
+}
+
+/* ============================================
+   MOBILE ENVELOPE
+============================================ */
+
+@media (max-width: 800px) {
+
+  .envelope {
+    min-height: 370px;
+  }
+
+  .envelope-paper {
+    top: 42px;
+    left: 4%;
+    right: 4%;
+
+    padding: 28px 24px;
+  }
+
+  .envelope-flap {
+    top: 28px;
+    height: 165px;
+  }
+
+  .envelope-trigger {
+    inset: 25px 0 0;
+    min-height: 340px;
+  }
+
+  .envelope--open {
+    min-height: 790px;
+  }
+
+  .envelope--open .envelope-paper {
+    top: 42px;
+
+    height: min(680px, calc(100svh - 100px));
+    max-height: calc(100svh - 100px);
+
+    padding: 28px 24px;
+
+    transform: translateY(-125px);
+  }
+
+  .letter-content {
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+}
