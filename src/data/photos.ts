@@ -1,4 +1,13 @@
-export type PhotoKey = 'hero' | 'leader' | 'panda' | 'foodie' | 'kindness' | 'sih';
+export type PhotoKey =
+  | 'hero'
+  | 'leader'
+  | 'panda'
+  | 'foodie'
+  | 'kindness'
+  | 'friendship'
+  | 'hackathon'
+  | 'specialDuo'
+  | 'sih';
 
 export type PhotoEntry = {
   key: PhotoKey;
@@ -9,62 +18,107 @@ export type PhotoEntry = {
   temporary: boolean;
 };
 
+// Automatically uses the correct GitHub Pages base path
+const asset = (filename: string) =>
+  `${import.meta.env.BASE_URL}assets/priyanshi/${filename}`;
+
 export const photos: Record<PhotoKey, PhotoEntry> = {
   hero: {
     key: 'hero',
-    src: '/assets/priyanshi/01._Hero.png',
+    src: asset('01._Hero.png'),
     caption: 'The main character.',
-    alt: 'Priyanshi in a pink traditional outfit',
+    alt: 'Priyanshi in a pink outfit',
     section: 'introduction',
     temporary: false,
   },
+
   leader: {
     key: 'leader',
-    src: '/assets/priyanshi/02._Leader.png',
+    src: asset('02._Leader.png'),
     caption: 'CEO of taking things seriously.',
     alt: 'Priyanshi speaking at a podium',
     section: 'leadership',
     temporary: false,
   },
+
   panda: {
     key: 'panda',
-    src: '/assets/priyanshi/03.Panda.png',
+    src: asset('03.Panda.png'),
     caption: 'Certified panda behaviour.',
-    alt: 'Priyanshi wearing a panda hat and making a peace sign',
+    alt: 'Priyanshi wearing a panda hat',
     section: 'panda',
     temporary: false,
   },
+
   foodie: {
     key: 'foodie',
-    src: '/assets/priyanshi/04._Foodie.png',
+    src: asset('04._Foodie.png'),
     caption: 'Happiness, served on a plate.',
-    alt: 'Priyanshi holding a pizza',
+    alt: 'Priyanshi holding pizza',
     section: 'foodie',
     temporary: false,
   },
+
   kindness: {
     key: 'kindness',
-    src: '/assets/priyanshi/05._Kindness.png',
+    src: asset('05._Kindness.png'),
     caption: 'One of my favourite people.',
-    alt: 'Priyanshi smiling in a pink outfit',
+    alt: 'Priyanshi smiling',
     section: 'kindness',
     temporary: false,
   },
+
+  friendship: {
+    key: 'friendship',
+    src: asset('06.Friendship.png'),
+    caption: 'A little friendship moment.',
+    alt: 'Both of us doing a fist bump',
+    section: 'friendship',
+    temporary: false,
+  },
+
+  hackathon: {
+    key: 'hackathon',
+    src: asset('07.Hackathon.png'),
+    caption: 'One team, countless ideas.',
+    alt: 'Both of us working together at a laptop',
+    section: 'hackathon',
+    temporary: false,
+  },
+
+  specialDuo: {
+    key: 'specialDuo',
+    src: asset('08.Special Duo.png'),
+    caption: 'One panda. One human. Double the chaos.',
+    alt: 'Both of us with a panda plushie',
+    section: 'special-duo',
+    temporary: false,
+  },
+
   sih: {
     key: 'sih',
-    src: '/assets/priyanshi/sih_photo.png',
+    src: asset('sih_photo.png'),
     caption: 'The team behind the idea.',
-    alt: 'A team posing at a Smart India Hackathon event',
+    alt: 'Our Smart India Hackathon team',
     section: 'hackathon',
     temporary: false,
   },
 };
 
+// All eight photographs available in the memory gallery
 export const temporaryMemories = [
-  { id: 'memory-01', src: photos.hero.src, caption: 'The main character.', alt: photos.hero.alt, temporary: false },
-  { id: 'memory-02', src: photos.leader.src, caption: 'The brain behind the PPT.', alt: photos.leader.alt, temporary: false },
-  { id: 'memory-03', src: photos.panda.src, caption: 'A little panda energy.', alt: photos.panda.alt, temporary: false },
-  { id: 'memory-04', src: photos.foodie.src, caption: 'Happiness, served on a plate.', alt: photos.foodie.alt, temporary: false },
-  { id: 'memory-05', src: photos.kindness.src, caption: 'One of my favourite people.', alt: photos.kindness.alt, temporary: false },
-  { id: 'memory-06', src: photos.sih.src, caption: 'The team behind the idea.', alt: photos.sih.alt, temporary: false },
-];
+  photos.hero,
+  photos.leader,
+  photos.panda,
+  photos.foodie,
+  photos.kindness,
+  photos.friendship,
+  photos.hackathon,
+  photos.specialDuo,
+].map((photo, index) => ({
+  id: `memory-${String(index + 1).padStart(2, '0')}`,
+  src: photo.src,
+  caption: photo.caption,
+  alt: photo.alt,
+  temporary: false,
+}));
