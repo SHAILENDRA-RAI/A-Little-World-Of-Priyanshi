@@ -382,3 +382,32 @@ p { font-size: 16px; line-height: 1.7; }
   margin-top: 25px;
   margin-bottom: 25px;
 }
+
+/* Panda card: improve photo and text spacing */
+.personality-card--panda img {
+  right: -9%;
+  width: 73%;
+  height: 62%;
+  object-position: center bottom;
+}
+
+/* Keep the handwritten text readable */
+.personality-card--panda .accent-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 260px;
+  line-height: 1.5;
+}
+
+/* Mobile adjustment */
+@media (max-width: 800px) {
+  .personality-card--panda img {
+    right: -5%;
+    width: 76%;
+    height: 62%;
+  }
+
+  .personality-card--panda .accent-copy {
+    max-width: 250px;
+  }
+}
