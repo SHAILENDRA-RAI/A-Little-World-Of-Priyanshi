@@ -79,7 +79,7 @@ export const photos: Record<PhotoKey, PhotoEntry> = {
 
   hackathon: {
     key: 'hackathon',
-    src: asset('07.Hackathon.png'),
+    src: asset('07. Hackathon.png'),
     caption: 'One team, countless ideas.',
     alt: 'Both of us working together at a laptop',
     section: 'hackathon',
@@ -88,7 +88,7 @@ export const photos: Record<PhotoKey, PhotoEntry> = {
 
   specialDuo: {
     key: 'specialDuo',
-    src: asset('08.Special Duo.png'),
+    src: asset('08. Special Duo.png'),
     caption: 'One panda. One human. Double the chaos.',
     alt: 'Both of us with a panda plushie',
     section: 'special-duo',
