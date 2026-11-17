@@ -1886,3 +1886,30 @@ p { font-size: 16px; line-height: 1.7; }
     transition: none;
   }
 }
+
+/* Birthday cursors */
+
+html,
+body,
+button,
+a,
+[role="button"] {
+  cursor: url("/A-Little-World-Of-Priyanshi/assets/cursors/party-hat-cursor.png") 12 10, auto;
+}
+
+/* Hover: birthday cake */
+
+button:hover,
+a:hover,
+[role="button"]:hover,
+.memory-svg-tile:hover {
+  cursor: url("/A-Little-World-Of-Priyanshi/assets/cursors/birthday-cake-cursor.png") 12 10, pointer;
+}
+
+/* Preserve text selection */
+
+input,
+textarea,
+[contenteditable="true"] {
+  cursor: text;
+}
