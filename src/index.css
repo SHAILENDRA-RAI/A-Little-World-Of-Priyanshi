@@ -525,20 +525,23 @@ p { font-size: 16px; line-height: 1.7; }
   }
 }
 
-/* MNIT Friendship Memory */
+/* MNIT FRIENDSHIP PHOTO - SHOW FULL IMAGE */
+
 .timeline-memory-photo {
-  width: min(100%, 560px);
-  margin: 30px 0 15px;
+  width: min(100%, 650px);
+  margin: 30px 0 20px;
 }
 
 .timeline-memory-photo .timeline-photo {
+  display: block;
   width: 100%;
-  max-height: 380px;
+  height: auto;
+  max-height: none;
   margin: 0;
-  object-fit: cover;
+  object-fit: contain;
   border: 9px solid #fffaf0;
   box-shadow: 10px 12px 0 #d9c4b4;
-  transform: rotate(-2deg);
+  transform: rotate(-1deg);
 }
 
 .timeline-memory-photo figcaption {
@@ -547,6 +550,13 @@ p { font-size: 16px; line-height: 1.7; }
   font-family: Caveat, cursive;
   font-size: 22px;
   text-align: center;
+}
+
+/* Mobile */
+@media (max-width: 800px) {
+  .timeline-memory-photo {
+    width: 100%;
+  }
 }
 
 /* TIMELINE INTRO - PANDA IN THE RIGHT-HAND EMPTY SPACE */
