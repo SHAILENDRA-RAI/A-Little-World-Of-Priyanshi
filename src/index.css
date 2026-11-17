@@ -1744,3 +1744,108 @@ p { font-size: 16px; line-height: 1.7; }
     transition: none;
   }
 }
+
+/* ==========================================
+   PRIYANSHI SVG HONEYCOMB MEMORY WALL
+========================================== */
+
+.memory-svg-container {
+  width: 100%;
+  max-width: 1250px;
+  margin: 45px auto;
+  overflow: hidden;
+  background: #30201c;
+}
+
+.memory-svg-wall {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.memory-svg-grid {
+  filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.22));
+}
+
+.memory-svg-tile {
+  cursor: pointer;
+  outline: none;
+}
+
+.memory-svg-border {
+  fill: #f7eee5;
+}
+
+.memory-svg-tile image {
+  transition: filter .3s ease;
+}
+
+.memory-svg-outline {
+  fill: none;
+  stroke: #30201c;
+  stroke-width: 2;
+  pointer-events: none;
+}
+
+.memory-svg-caption {
+  opacity: 0;
+  transition: opacity .3s ease;
+  pointer-events: none;
+}
+
+.memory-svg-caption-text {
+  fill: #fff8ef;
+  font-family: Caveat, cursive;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.memory-svg-tile--featured .memory-svg-caption-text {
+  font-size: 17px;
+}
+
+@media (hover: hover) {
+  .memory-svg-tile:hover {
+    filter: brightness(1.08);
+  }
+
+  .memory-svg-tile:hover .memory-svg-caption {
+    opacity: 1;
+  }
+
+  .memory-svg-tile:hover image {
+    filter: saturate(1.12);
+  }
+}
+
+.memory-svg-tile:focus-visible .memory-svg-outline {
+  stroke: #f3c6b9;
+  stroke-width: 5;
+}
+
+@media (max-width: 600px) {
+  .memory-svg-container {
+    margin: 25px auto;
+  }
+
+  .memory-svg-caption {
+    opacity: 1;
+  }
+
+  .memory-svg-caption-text {
+    font-size: 10px;
+  }
+
+  .memory-svg-tile--featured .memory-svg-caption-text {
+    font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .memory-svg-tile,
+  .memory-svg-tile image,
+  .memory-svg-caption {
+    transition: none;
+  }
+}
