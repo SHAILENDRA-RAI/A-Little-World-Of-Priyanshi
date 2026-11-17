@@ -151,8 +151,8 @@ function App() {
     who appreciate you as much as you deserve.
   </p>
 
-  <p>
-    Happy 20th Birthday, Priyanshi!
+  <p className="birthday-highlight">
+  Happy 20th Birthday, Priyanshi! 🎀
   </p>
 
   <p>
