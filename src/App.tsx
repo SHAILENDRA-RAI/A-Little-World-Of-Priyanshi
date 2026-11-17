@@ -138,17 +138,42 @@ function App() {
     )}
   </div>
 
-  <div className="memory-wall">
-    {temporaryMemories.map((memory, index) => (
+  {/* FIRST 8 PHOTOS: SCRAPBOOK */}
+<div className="memory-featured-grid">
+  {temporaryMemories.slice(0, 8).map((memory, index) => (
+    <button
+      key={memory.id}
+      className={`memory-photo memory-featured memory-featured--${index + 1}`}
+      onClick={() => setLightbox(index)}
+      aria-label={`Open memory: ${memory.caption}`}
+    >
+      <img
+        src={memory.src}
+        alt={memory.alt}
+        loading="lazy"
+        decoding="async"
+      />
+      <span>{memory.caption}</span>
+    </button>
+  ))}
+</div>
+
+{/* REMAINING 46 PHOTOS: HONEYCOMB */}
+<div className="honeycomb-heading">
+  <span>THE LITTLE MOMENTS</span>
+  <p>46 more reasons to smile.</p>
+</div>
+
+<div className="memory-honeycomb">
+  {temporaryMemories.slice(8).map((memory, offset) => {
+    const index = offset + 8;
+
+    return (
       <button
         key={memory.id}
-        className={`memory-photo memory-photo--${index + 1} ${
-          index >= 8 ? "memory-photo--honeycomb" : ""
-        }`}
+        className={`memory-photo memory-photo--honeycomb memory-hex--${offset + 1}`}
         onClick={() => setLightbox(index)}
         onPointerMove={(event) => {
-          if (index < 8) return;
-
           const rect = event.currentTarget.getBoundingClientRect();
 
           event.currentTarget.style.setProperty(
@@ -169,11 +194,11 @@ function App() {
           loading="lazy"
           decoding="async"
         />
-
         <span>{memory.caption}</span>
       </button>
-    ))}
-  </div>
+    );
+  })}
+</div>
 
   <p className="closing-line">
     The best memories are usually the ones we never planned.
