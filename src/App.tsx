@@ -117,6 +117,41 @@ function App() {
   {temporaryMemories.map((memory, index) => (
     <button
       key={memory.id}
+      className={`memory-photo memory-photo--${index + 1} ${
+        index >= 8 ? "memory-photo--honeycomb" : ""
+      }`}
+      onClick={() => setLightbox(index)}
+      onPointerMove={(event) => {
+        if (index < 8) return;
+
+        const rect = event.currentTarget.getBoundingClientRect();
+
+        event.currentTarget.style.setProperty(
+          "--pointer-x",
+          `${((event.clientX - rect.left) / rect.width) * 100}%`
+        );
+
+        event.currentTarget.style.setProperty(
+          "--pointer-y",
+          `${((event.clientY - rect.top) / rect.height) * 100}%`
+        );
+      }}
+      aria-label={`Open memory: ${memory.caption}`}
+    >
+      <img
+        src={memory.src}
+        alt={memory.alt}
+        loading="lazy"
+        decoding="async"
+      />
+
+      <span>{memory.caption}</span>
+    </button>
+  ))}
+</div>
+  {temporaryMemories.map((memory, index) => (
+    <button
+      key={memory.id}
       className={`memory-photo memory-photo--${index + 1}`}
       onClick={() => setLightbox(index)}
       aria-label={`Open memory: ${memory.caption}`}
