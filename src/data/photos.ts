@@ -70,7 +70,7 @@ export const photos: Record<PhotoKey, PhotoEntry> = {
 
   friendship: {
     key: 'friendship',
-    src: asset('06.Friendship.png'),
+    src: asset('06. Friendship.png'),
     caption: 'A little friendship moment.',
     alt: 'Both of us doing a fist bump',
     section: 'friendship',
