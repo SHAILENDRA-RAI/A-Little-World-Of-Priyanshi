@@ -7,6 +7,8 @@ import { photos, temporaryMemories } from '@/data/photos';
 
 type SectionTitleProps = { eyebrow: string; title: string; copy?: string; light?: boolean };
 
+import MemoryHoneycomb from './MemoryHoneycomb';
+
 const pandaMessages = [
   'Panda needs food.', 'Stop scrolling and eat something.', 'Your cuteness has been reported.',
   'Team Leader detected.', 'Another hackathon? Let’s go!', 'Panda approves this friendship.', 'Have you eaten yet?',
@@ -162,47 +164,10 @@ function App() {
 
   {/* ALL 54 PHOTOS: UNIFIED HYBRID HONEYCOMB */}
 
-<div className="memory-honeycomb">
-  {galleryMemories.map((memory, index) => (
-    <button
-      key={memory.id}
-      className={`memory-photo memory-photo--honeycomb ${
-        memory.featured ? 'memory-hex-featured' : 'memory-hex-small'
-      }`}
-      onClick={() => setLightbox(index)}
-      onPointerMove={(event) => {
-        const rect = event.currentTarget.getBoundingClientRect();
-
-        event.currentTarget.style.setProperty(
-          '--pointer-x',
-          `${((event.clientX - rect.left) / rect.width) * 100}%`
-        );
-
-        event.currentTarget.style.setProperty(
-          '--pointer-y',
-          `${((event.clientY - rect.top) / rect.height) * 100}%`
-        );
-      }}
-      aria-label={`Open memory: ${memory.caption}`}
-    >
-      <img
-        src={memory.src}
-        alt={memory.alt}
-        loading="lazy"
-        decoding="async"
-        onError={(event) => {
-          event.currentTarget.closest('button')?.classList.add(
-            'memory-photo--broken'
-          );
-        }}
-      />
-
-      <span className="memory-hex-caption">
-        {memory.caption}
-      </span>
-    </button>
-  ))}
-</div>
+<MemoryHoneycomb
+  memories={galleryMemories}
+  onSelect={setLightbox}
+/>
 
 <p className="closing-line">
   The best memories are usually the ones we never planned.
