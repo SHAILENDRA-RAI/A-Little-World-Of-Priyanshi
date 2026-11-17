@@ -171,18 +171,29 @@ function App() {
     return (
       <button
         key={memory.id}
-        className={`memory-photo memory-photo--honeycomb memory-hex--${offset + 1}`}
+        className={`memory-photo m{/* ALL 54 PHOTOS: UNIFIED HYBRID HONEYCOMB */}
+
+<div className="memory-honeycomb">
+  {temporaryMemories.map((memory, index) => {
+    const isFeatured = index < 8;
+
+    return (
+      <button
+        key={memory.id}
+        className={`memory-photo memory-photo--honeycomb ${
+          isFeatured ? `memory-hex-featured memory-hex-featured--${index + 1}` : 'memory-hex-small'
+        }`}
         onClick={() => setLightbox(index)}
         onPointerMove={(event) => {
           const rect = event.currentTarget.getBoundingClientRect();
 
           event.currentTarget.style.setProperty(
-            "--pointer-x",
+            '--pointer-x',
             `${((event.clientX - rect.left) / rect.width) * 100}%`
           );
 
           event.currentTarget.style.setProperty(
-            "--pointer-y",
+            '--pointer-y',
             `${((event.clientY - rect.top) / rect.height) * 100}%`
           );
         }}
@@ -194,7 +205,10 @@ function App() {
           loading="lazy"
           decoding="async"
         />
-        <span>{memory.caption}</span>
+
+        <span className="memory-hex-caption">
+          {memory.caption}
+        </span>
       </button>
     );
   })}
