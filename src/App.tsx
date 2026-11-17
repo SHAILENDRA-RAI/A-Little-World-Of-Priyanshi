@@ -113,58 +113,72 @@ function App() {
 </figure><button className="streak-button" onClick={() => setStreakOpen(!streakOpen)}><Zap size={17} /> 154 day streak</button>{streakOpen && <div className="streak-reveal">154 days of snaps. Countless little moments. One friendship worth keeping.</div>}</div></article>
       </div></section>
 
-      <section className="memory-section" id="memories"><SectionTitle eyebrow="The Priyanshi collection" title="A little corner of our memories." copy="Some moments weren’t planned. Some photographs weren’t perfect. But somehow, they’re all worth keeping." light /><div className="memory-actions"><button className="button button--outline" onClick={showRandomMemory}><Sparkles size={17} /> Show me a random memory</button>{visibleMemory && <div className="random-memory"><img src={visibleMemory.src} alt={visibleMemory.alt} /><div><span>randomly selected</span><strong>{visibleMemory.caption}</strong></div></div>}</div><div className="memory-wall">
-  {temporaryMemories.map((memory, index) => (
-    <button
-      key={memory.id}
-      className={`memory-photo memory-photo--${index + 1} ${
-        index >= 8 ? "memory-photo--honeycomb" : ""
-      }`}
-      onClick={() => setLightbox(index)}
-      onPointerMove={(event) => {
-        if (index < 8) return;
+      <section className="memory-section" id="memories">
+  <SectionTitle
+    eyebrow="The Priyanshi collection"
+    title="A little corner of our memories."
+    copy="Some moments weren’t planned. Some photographs weren’t perfect. But somehow, they’re all worth keeping."
+    light
+  />
 
-        const rect = event.currentTarget.getBoundingClientRect();
-
-        event.currentTarget.style.setProperty(
-          "--pointer-x",
-          `${((event.clientX - rect.left) / rect.width) * 100}%`
-        );
-
-        event.currentTarget.style.setProperty(
-          "--pointer-y",
-          `${((event.clientY - rect.top) / rect.height) * 100}%`
-        );
-      }}
-      aria-label={`Open memory: ${memory.caption}`}
-    >
-      <img
-        src={memory.src}
-        alt={memory.alt}
-        loading="lazy"
-        decoding="async"
-      />
-
-      <span>{memory.caption}</span>
+  <div className="memory-actions">
+    <button className="button button--outline" onClick={showRandomMemory}>
+      <Sparkles size={17} />
+      Show me a random memory
     </button>
-  ))}
-</div>
-  {temporaryMemories.map((memory, index) => (
-    <button
-      key={memory.id}
-      className={`memory-photo memory-photo--${index + 1}`}
-      onClick={() => setLightbox(index)}
-      aria-label={`Open memory: ${memory.caption}`}
-    >
-      <img
-        src={memory.src}
-        alt={memory.alt}
-        loading="lazy"
-      />
-      <span>{memory.caption}</span>
-    </button>
-  ))}
-</div><p className="closing-line">The best memories are usually the ones we never planned.</p></section>
+
+    {visibleMemory && (
+      <div className="random-memory">
+        <img src={visibleMemory.src} alt={visibleMemory.alt} />
+        <div>
+          <span>randomly selected</span>
+          <strong>{visibleMemory.caption}</strong>
+        </div>
+      </div>
+    )}
+  </div>
+
+  <div className="memory-wall">
+    {temporaryMemories.map((memory, index) => (
+      <button
+        key={memory.id}
+        className={`memory-photo memory-photo--${index + 1} ${
+          index >= 8 ? "memory-photo--honeycomb" : ""
+        }`}
+        onClick={() => setLightbox(index)}
+        onPointerMove={(event) => {
+          if (index < 8) return;
+
+          const rect = event.currentTarget.getBoundingClientRect();
+
+          event.currentTarget.style.setProperty(
+            "--pointer-x",
+            `${((event.clientX - rect.left) / rect.width) * 100}%`
+          );
+
+          event.currentTarget.style.setProperty(
+            "--pointer-y",
+            `${((event.clientY - rect.top) / rect.height) * 100}%`
+          );
+        }}
+        aria-label={`Open memory: ${memory.caption}`}
+      >
+        <img
+          src={memory.src}
+          alt={memory.alt}
+          loading="lazy"
+          decoding="async"
+        />
+
+        <span>{memory.caption}</span>
+      </button>
+    ))}
+  </div>
+
+  <p className="closing-line">
+    The best memories are usually the ones we never planned.
+  </p>
+</section>
 
       <section className="report-section"><div className="report-copy"><SectionTitle eyebrow="Filed under: scientifically questionable" title="Official panda personality report." copy="Results gathered after extensive observation and several outside-food incidents." /><div className="report-list">{[['Leadership', '100/100', '100%'], ['Cuteness', '1000/100', '100%'], ['Food consumption', 'Beyond measurement', '96%'], ['Kindness', 'Infinite', '100%'], ['Friendship score', '11/10', '100%']].map(([label, value, width]) => <div className="report-row" key={label}><div><span>{label}</span><strong>{value}</strong></div><div className="report-track"><i style={{ width }} /></div></div>)}</div></div><div className="report-card"><div className="report-stamp">VERIFIED<br />ISH</div><PandaDoodle mood="sleep" /><div className="report-card-footer">Results: emotionally accurate<br /><small>no elections required</small></div></div></section>
 
