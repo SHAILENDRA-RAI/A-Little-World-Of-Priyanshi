@@ -548,3 +548,36 @@ p { font-size: 16px; line-height: 1.7; }
   font-size: 22px;
   text-align: center;
 }
+
+/* TIMELINE INTRO - LARGE PANDA ON THE RIGHT */
+
+.timeline-intro {
+  position: relative;
+}
+
+.timeline-intro > .panda-doodle {
+  position: absolute;
+  right: -440px;
+  bottom: 5px;
+  left: auto;
+  transform: scale(2.5);
+  transform-origin: center bottom;
+  z-index: 2;
+}
+
+/* Responsive adjustment */
+@media (max-width: 1000px) {
+  .timeline-intro > .panda-doodle {
+    right: -100px;
+    bottom: -100px;
+    transform: scale(1.5);
+  }
+}
+
+@media (max-width: 800px) {
+  .timeline-intro > .panda-doodle {
+    right: 15px;
+    bottom: -120px;
+    transform: scale(1.3);
+  }
+}
