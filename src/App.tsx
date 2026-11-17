@@ -138,40 +138,7 @@ function App() {
     )}
   </div>
 
-  {/* FIRST 8 PHOTOS: SCRAPBOOK */}
-<div className="memory-featured-grid">
-  {temporaryMemories.slice(0, 8).map((memory, index) => (
-    <button
-      key={memory.id}
-      className={`memory-photo memory-featured memory-featured--${index + 1}`}
-      onClick={() => setLightbox(index)}
-      aria-label={`Open memory: ${memory.caption}`}
-    >
-      <img
-        src={memory.src}
-        alt={memory.alt}
-        loading="lazy"
-        decoding="async"
-      />
-      <span>{memory.caption}</span>
-    </button>
-  ))}
-</div>
-
-{/* REMAINING 46 PHOTOS: HONEYCOMB */}
-<div className="honeycomb-heading">
-  <span>THE LITTLE MOMENTS</span>
-  <p>46 more reasons to smile.</p>
-</div>
-
-<div className="memory-honeycomb">
-  {temporaryMemories.slice(8).map((memory, offset) => {
-    const index = offset + 8;
-
-    return (
-      <button
-        key={memory.id}
-        className={`memory-photo m{/* ALL 54 PHOTOS: UNIFIED HYBRID HONEYCOMB */}
+  {/* ALL 54 PHOTOS: UNIFIED HYBRID HONEYCOMB */}
 
 <div className="memory-honeycomb">
   {temporaryMemories.map((memory, index) => {
@@ -181,7 +148,9 @@ function App() {
       <button
         key={memory.id}
         className={`memory-photo memory-photo--honeycomb ${
-          isFeatured ? `memory-hex-featured memory-hex-featured--${index + 1}` : 'memory-hex-small'
+          isFeatured
+            ? `memory-hex-featured memory-hex-featured--${index + 1}`
+            : 'memory-hex-small'
         }`}
         onClick={() => setLightbox(index)}
         onPointerMove={(event) => {
@@ -214,9 +183,9 @@ function App() {
   })}
 </div>
 
-  <p className="closing-line">
-    The best memories are usually the ones we never planned.
-  </p>
+<p className="closing-line">
+  The best memories are usually the ones we never planned.
+</p>
 </section>
 
       <section className="report-section"><div className="report-copy"><SectionTitle eyebrow="Filed under: scientifically questionable" title="Official panda personality report." copy="Results gathered after extensive observation and several outside-food incidents." /><div className="report-list">{[['Leadership', '100/100', '100%'], ['Cuteness', '1000/100', '100%'], ['Food consumption', 'Beyond measurement', '96%'], ['Kindness', 'Infinite', '100%'], ['Friendship score', '11/10', '100%']].map(([label, value, width]) => <div className="report-row" key={label}><div><span>{label}</span><strong>{value}</strong></div><div className="report-track"><i style={{ width }} /></div></div>)}</div></div><div className="report-card"><div className="report-stamp">VERIFIED<br />ISH</div><PandaDoodle mood="sleep" /><div className="report-card-footer">Results: emotionally accurate<br /><small>no elections required</small></div></div></section>
