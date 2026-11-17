@@ -549,15 +549,16 @@ p { font-size: 16px; line-height: 1.7; }
   text-align: center;
 }
 
-/* TIMELINE INTRO - PANDA CENTRED IN RIGHT SPACE */
+/* TIMELINE INTRO - PANDA IN THE RIGHT-HAND EMPTY SPACE */
 
 .timeline-intro {
   position: relative;
+  max-width: 700px;
 }
 
 .timeline-intro > .panda-doodle {
   position: absolute;
-  left: 82%;
+  left: calc(100% + 130px);
   right: auto;
   bottom: 5px;
   transform: translateX(-50%) scale(2.5);
@@ -568,8 +569,8 @@ p { font-size: 16px; line-height: 1.7; }
 /* Tablet */
 @media (max-width: 1000px) {
   .timeline-intro > .panda-doodle {
-    left: 85%;
-    bottom: -80px;
+    left: calc(100% + 80px);
+    bottom: -50px;
     transform: translateX(-50%) scale(1.7);
   }
 }
