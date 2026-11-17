@@ -524,3 +524,27 @@ p { font-size: 16px; line-height: 1.7; }
     height: 72%;
   }
 }
+
+/* MNIT Friendship Memory */
+.timeline-memory-photo {
+  width: min(100%, 560px);
+  margin: 30px 0 15px;
+}
+
+.timeline-memory-photo .timeline-photo {
+  width: 100%;
+  max-height: 380px;
+  margin: 0;
+  object-fit: cover;
+  border: 9px solid #fffaf0;
+  box-shadow: 10px 12px 0 #d9c4b4;
+  transform: rotate(-2deg);
+}
+
+.timeline-memory-photo figcaption {
+  margin-top: 18px;
+  color: #a26761;
+  font-family: Caveat, cursive;
+  font-size: 22px;
+  text-align: center;
+}
