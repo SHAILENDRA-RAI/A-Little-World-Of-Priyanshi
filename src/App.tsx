@@ -106,7 +106,60 @@ function App() {
     {opened && <>
       <header className="site-nav"><a className="brand" href="#top"><span className="brand-mark">P</span><span>Priyanshi <em>20</em></span></a><nav><a href="#story">The story</a><a href="#memories">Memories</a><a href="#letter">The letter</a></nav><button className="nav-panda" onClick={showPandaMessage} aria-label="Ask the panda"><span>●</span></button></header>
 
-      <section className="cake-section" id="top"><div className="cake-copy"><span className="eyebrow">Chapter 20 · birthday ritual</span><h2>Make a wish,<br /><em>Priyanshi.</em></h2><p>Twenty candles for twenty years of being clever, kind, slightly dramatic and completely impossible to replace.</p><button className="button button--pink" onClick={() => setCandlesOut(!candlesOut)}>{candlesOut ? 'Light them again' : 'Blow out the candles'} <Sparkles size={16} /></button>{candlesOut && <div className="birthday-message"><strong>Happy birthday, Priyanshi!</strong><span>17 November 2006 · Chapter 20 begins</span></div>}</div><div className={`birthday-cake ${candlesOut ? 'birthday-cake--out' : ''}`}><div className="cake-candles">{candles.map((candle) => <span key={candle} className="candle"><i /></span>)}</div><div className="cake-top" /><div className="cake-middle" /><div className="cake-bottom" /><div className="cake-plate" /></div><PandaDoodle mood="snack" /></section>
+      <section className="cake-section" id="top">
+  <div className="cake-copy">
+    <span className="eyebrow">
+      Chapter 20 · birthday ritual
+    </span>
+
+    <h2>
+      Make a wish,
+      <br />
+      <em>Priyanshi.</em>
+    </h2>
+
+    <p>
+      Twenty candles for twenty years of being clever, kind,
+      slightly dramatic and completely impossible to replace.
+    </p>
+
+    <button
+      className="button button--pink"
+      onClick={() => setCandlesOut(!candlesOut)}
+    >
+      {candlesOut ? 'Light them again' : 'Blow out the candles'}
+      <Sparkles size={16} />
+    </button>
+
+    {candlesOut && (
+      <div className="birthday-message">
+        <strong>Happy birthday, Priyanshi!</strong>
+        <span>17 November 2006 · Chapter 20 begins</span>
+      </div>
+    )}
+
+    <PandaDoodle mood="snack" />
+  </div>
+
+  <div
+    className={`birthday-cake ${
+      candlesOut ? 'birthday-cake--out' : ''
+    }`}
+  >
+    <div className="cake-candles">
+      {candles.map((candle) => (
+        <span key={candle} className="candle">
+          <i />
+        </span>
+      ))}
+    </div>
+
+    <div className="cake-top" />
+    <div className="cake-middle" />
+    <div className="cake-bottom" />
+    <div className="cake-plate" />
+  </div>
+</section>
 
       <section className="hero-section"><div className="hero-copy"><span className="eyebrow">Introducing</span><h2>The main<br /><em>character.</em></h2><p className="hero-lede">One girl. Countless personalities. An unreasonable amount of cuteness.</p><div className="fact-list"><span><small>Birthday</small>17.11.2006</span><span><small>Branch</small>Information Technology</span><span><small>Official status</small>Friend, mentor, team leader</span></div></div><div className="hero-portrait"><div className="portrait-label">01 / the original</div><img src={photos.hero.src} alt={photos.hero.alt} /><span className="portrait-sticker">main character energy</span></div></section>
 
