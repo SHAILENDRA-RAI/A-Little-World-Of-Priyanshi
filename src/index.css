@@ -1502,3 +1502,245 @@ p { font-size: 16px; line-height: 1.7; }
     transition: none;
   }
 }
+
+/* =====================================================
+   PRIYANSHI MEMORY WALL
+   SEAMLESS HONEYCOMB MOSAIC
+===================================================== */
+
+.memory-honeycomb {
+  --honeycomb-bg: #30201c;
+  --honeycomb-border: #f7eee5;
+
+  width: min(100%, 1250px);
+  margin: 55px auto 40px;
+  padding: 0 10px;
+
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-auto-rows: clamp(22px, 3.2vw, 38px);
+
+  gap: 0;
+  grid-auto-flow: dense;
+  align-items: stretch;
+}
+
+/* Individual photo cells */
+
+.memory-photo--honeycomb {
+  position: relative;
+  isolation: isolate;
+
+  display: block;
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  overflow: hidden;
+
+  border: 2px solid var(--honeycomb-bg);
+  background: var(--honeycomb-border);
+
+  clip-path: polygon(
+    25% 0%,
+    75% 0%,
+    100% 50%,
+    75% 100%,
+    25% 100%,
+    0% 50%
+  );
+
+  cursor: pointer;
+
+  transition:
+    transform .35s ease,
+    filter .35s ease;
+
+  animation: honeycomb-appear .7s ease both;
+}
+
+/* Small cells */
+
+.memory-hex-small {
+  grid-column: span 3;
+  grid-row: span 4;
+}
+
+/* Featured cells */
+
+.memory-hex-featured {
+  grid-column: span 4;
+  grid-row: span 5;
+
+  border-width: 2px;
+}
+
+/* Photos */
+
+.memory-photo--honeycomb img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transition:
+    transform .65s cubic-bezier(.2,.8,.2,1),
+    filter .4s ease;
+}
+
+/* Hide broken images instead of showing empty cells */
+
+.memory-photo--broken {
+  display: none;
+}
+
+/* Subtle theme overlay */
+
+.memory-photo--honeycomb::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+
+  pointer-events: none;
+
+  background: linear-gradient(
+    to bottom,
+    transparent 45%,
+    rgba(35, 20, 17, .78)
+  );
+
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+
+/* Captions */
+
+.memory-hex-caption {
+  position: absolute;
+  z-index: 2;
+
+  left: 10%;
+  right: 10%;
+  bottom: 17%;
+
+  padding: 10px 4px;
+
+  color: #fff8ef;
+
+  font-family: Caveat, cursive;
+  font-size: clamp(10px, 1.15vw, 17px);
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+
+  opacity: 0;
+
+  transition: opacity .3s ease;
+}
+
+/* Larger captions on featured photos */
+
+.memory-hex-featured .memory-hex-caption {
+  font-size: clamp(13px, 1.5vw, 21px);
+}
+
+/* Hover */
+
+@media (hover: hover) and (pointer: fine) {
+  .memory-photo--honeycomb:hover {
+    z-index: 10;
+    transform: scale(1.06);
+    filter: saturate(1.12);
+  }
+
+  .memory-photo--honeycomb:hover img {
+    transform: scale(1.12);
+  }
+
+  .memory-photo--honeycomb:hover::before,
+  .memory-photo--honeycomb:hover .memory-hex-caption {
+    opacity: 1;
+  }
+}
+
+/* Entry animation */
+
+@keyframes honeycomb-appear {
+  from {
+    opacity: 0;
+    transform: scale(.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Tablet */
+
+@media (max-width: 900px) {
+  .memory-honeycomb {
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+    grid-auto-rows: 30px;
+  }
+
+  .memory-hex-small {
+    grid-column: span 2;
+    grid-row: span 3;
+  }
+
+  .memory-hex-featured {
+    grid-column: span 4;
+    grid-row: span 4;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+  .memory-honeycomb {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-auto-rows: 25px;
+
+    padding: 0 2px;
+    margin-top: 30px;
+  }
+
+  .memory-hex-small {
+    grid-column: span 2;
+    grid-row: span 3;
+  }
+
+  .memory-hex-featured {
+    grid-column: span 3;
+    grid-row: span 4;
+  }
+
+  .memory-hex-caption {
+    font-size: 9px;
+    opacity: 1;
+    bottom: 12%;
+  }
+
+  .memory-hex-featured .memory-hex-caption {
+    font-size: 11px;
+  }
+}
+
+/* Reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  .memory-photo--honeycomb,
+  .memory-photo--honeycomb img {
+    animation: none;
+    transition: none;
+  }
+}
