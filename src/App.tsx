@@ -60,9 +60,13 @@ function App() {
   () => shuffleMemories(temporaryMemories),
   []
 );
+  const visibleMemory = randomMemory === null
+  ? null
+  : galleryMemories[randomMemory];
 
-  const visibleMemory = randomMemory === null ? null : temporaryMemories[randomMemory];
-  const currentMemory = lightbox === null ? null : temporaryMemories[lightbox];
+  const currentMemory = lightbox === null
+  ? null
+  : galleryMemories[lightbox];
   const candles = useMemo(() => Array.from({ length: 20 }, (_, index) => index), []);
 
   useEffect(() => {
