@@ -606,3 +606,27 @@ p { font-size: 16px; line-height: 1.7; }
   font-size: 22px;
   text-align: center;
 }
+
+/* LEADER CARD - REDUCE IMAGE SIZE */
+
+.personality-card--leader {
+  overflow: hidden;
+}
+
+.personality-card--leader img {
+  width: 48%;
+  height: 68%;
+  right: -1%;
+  bottom: 0;
+  object-fit: contain;
+  object-position: bottom right;
+}
+
+/* Mobile */
+@media (max-width: 800px) {
+  .personality-card--leader img {
+    width: 55%;
+    height: 62%;
+    right: -2%;
+  }
+}
