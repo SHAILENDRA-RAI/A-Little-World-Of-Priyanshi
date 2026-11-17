@@ -102,16 +102,36 @@ const toggleMusic = async () => {
   }, [lightbox]);
 
   const showPandaMessage = () => setPandaMessage(pandaMessages[Math.floor(Math.random() * pandaMessages.length)]);
-  const turnOnLights = () => {
-    setLightReveal(true);
-    window.setTimeout(() => setLightsOn(true), 1800);
-  };
+  const turnOnLights = async () => {
+  const audio = audioRef.current;
+
+  if (audio) {
+    try {
+      await audio.play();
+      setMusicPlaying(true);
+    } catch (error) {
+      console.log('Music could not start:', error);
+      setMusicPlaying(false);
+    }
+  }
+
+  setLightReveal(true);
+  window.setTimeout(() => setLightsOn(true), 1800);
+};
   const showRandomMemory = () =>
   setRandomMemory(
     Math.floor(Math.random() * galleryMemories.length)
   );
 
   return <main>
+    <audio
+  ref={audioRef}
+  src={`${import.meta.env.BASE_URL}assets/music/birthday-tune.mp3`}
+  loop
+  preload="auto"
+  onPlay={() => setMusicPlaying(true)}
+  onPause={() => setMusicPlaying(false)}
+/>
     {!lightsOn && <section className={`dark-opening ${lightReveal ? 'dark-opening--revealing' : ''}`} aria-label="Turn on the lights">
       <div className="dark-stars" /><div className="dark-opening-glow" /><div className="dark-opening-content"><span className="dark-kicker">A private little universe</span><button className="lights-button" onClick={turnOnLights} disabled={lightReveal}><span className="lights-button-icon"><Sparkles size={18} /></span><span>Turn on the lights</span></button><p>Someone has a little surprise waiting for you...</p></div><span className="dark-opening-mark">17 · 11 · 2026</span>
     </section>}
@@ -124,15 +144,6 @@ const toggleMusic = async () => {
     </section>}
 
     {opened && <>
-      <audio
-  ref={audioRef}
-  src={`${import.meta.env.BASE_URL}assets/music/birthday-tune.mp3`}
-  loop
-  preload="none"
-  onPlay={() => setMusicPlaying(true)}
-  onPause={() => setMusicPlaying(false)}
-/>
-
 <button
   className={`music-button ${musicPlaying ? 'music-button--playing' : ''}`}
   onClick={toggleMusic}
