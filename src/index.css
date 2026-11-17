@@ -1957,7 +1957,7 @@ button:hover,
 a:hover,
 [role="button"]:hover,
 .memory-svg-tile:hover {
-  cursor: url("/A-Little-World-Of-Priyanshi/assets/cursors/birthday-cake-cursor.png") 12 10, pointer;
+  cursor: url("/assets/cursors/birthday-cake-cursor.png") 12 10, pointer;
 }
 
 /* Preserve text selection */
