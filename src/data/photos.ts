@@ -1,4 +1,3 @@
-```tsx
 export type PhotoKey =
   | 'hero'
   | 'leader'
@@ -210,4 +209,3 @@ export const temporaryMemories = allGalleryPhotos.map((photo, index) => ({
   temporary: false,
   featured: Boolean(photo.featured),
 }));
-```
