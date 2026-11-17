@@ -50,7 +50,8 @@ function overlaps(
   const dx = b.x - a.x;
   const dy = b.y - a.y;
 
-  const apothem = (Math.sqrt(3) / 2) * (a.radius + b.radius);
+  const apothem =
+    (Math.sqrt(3) / 2) * (a.radius + b.radius);
 
   const axes = [
     { x: 1, y: 0 },
@@ -79,7 +80,7 @@ function hexPoints(radius: number) {
 function getLayout(memories: Memory[]) {
   const candidates: { x: number; y: number }[] = [];
 
-  // Generate the complete staggered honeycomb.
+  // Generate staggered honeycomb positions.
   for (let row = 0; row < 80; row++) {
     for (let col = 0; col < COLUMNS; col++) {
       const x =
@@ -96,6 +97,7 @@ function getLayout(memories: Memory[]) {
     }
   }
 
+  // Randomize featured and regular photos separately.
   const featured = shuffle(
     memories
       .map((memory, index) => ({ memory, index }))
@@ -110,13 +112,12 @@ function getLayout(memories: Memory[]) {
 
   const placed: PositionedMemory[] = [];
 
-  // Eight balanced positions for the featured photos.
+  // Balanced positions for the eight featured photos.
   const featuredSlots = [
     [0.13, 1.4],
     [0.37, 1.4],
     [0.63, 1.4],
     [0.87, 1.4],
-
     [0.13, 5.3],
     [0.37, 5.3],
     [0.63, 5.3],
@@ -172,7 +173,7 @@ function getLayout(memories: Memory[]) {
     });
   });
 
-  // Fill the remaining honeycomb positions.
+  // Fill remaining positions with equal-sized photos.
   regular.forEach(item => {
     const positionIndex = candidates.findIndex(candidate => {
       const current = {
@@ -199,7 +200,9 @@ function getLayout(memories: Memory[]) {
 
   const height = Math.max(
     700,
-    ...placed.map(item => item.y + item.radius + PADDING)
+    ...placed.map(
+      item => item.y + item.radius + PADDING
+    )
   );
 
   return { items: placed, height };
@@ -230,9 +233,8 @@ export default function MemoryHoneycomb({
   memories,
   onSelect,
 }: Props) {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(
-    null
-  );
+  const [hoveredIndex, setHoveredIndex] =
+    useState<number | null>(null);
 
   const { items, height } = useMemo(
     () => getLayout(memories),
@@ -243,3 +245,156 @@ export default function MemoryHoneycomb({
     item => item.index === hoveredIndex
   );
 
+  return (
+    <div
+      className="memory-svg-container"
+      onPointerLeave={() => setHoveredIndex(null)}
+    >
+      <svg
+        className="memory-svg-wall"
+        viewBox={`0 0 ${WIDTH} ${height}`}
+        role="group"
+        aria-label="Priyanshi's memory gallery"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <linearGradient
+            id="memory-caption-gradient"
+            x1="0"
+            y1="0"
+            x2="0"
+            y2="1"
+          >
+            <stop
+              offset="0%"
+              stopColor="#241713"
+              stopOpacity="0"
+            />
+
+            <stop
+              offset="100%"
+              stopColor="#241713"
+              stopOpacity=".88"
+            />
+          </linearGradient>
+
+          {items.map(item => (
+            <clipPath
+              id={`clip-${item.memory.id}`}
+              key={`clip-${item.memory.id}`}
+            >
+              <polygon points={hexPoints(item.radius)} />
+            </clipPath>
+          ))}
+        </defs>
+
+        <g className="memory-svg-grid">
+          {items.map(item => {
+            const {
+              memory,
+              radius,
+              x,
+              y,
+              index,
+            } = item;
+
+            const isHovered = hoveredIndex === index;
+
+            const isNearby =
+              hoveredItem !== undefined &&
+              !isHovered &&
+              Math.hypot(
+                hoveredItem.x - x,
+                hoveredItem.y - y
+              ) < STEP_X * 1.85;
+
+            const lines = captionLines(memory.caption);
+
+            return (
+              <g
+                key={memory.id}
+                className="memory-svg-tile"
+                transform={`translate(${x - radius}, ${y - radius})`}
+                role="button"
+                tabIndex={0}
+                aria-label={memory.caption}
+                onPointerEnter={event => {
+                  if (event.pointerType !== 'touch') {
+                    setHoveredIndex(index);
+                  }
+                }}
+                onClick={() => onSelect(index)}
+                onKeyDown={event => {
+                  if (
+                    event.key === 'Enter' ||
+                    event.key === ' '
+                  ) {
+                    event.preventDefault();
+                    onSelect(index);
+                  }
+                }}
+              >
+                <title>{memory.caption}</title>
+
+                <g
+                  className={`memory-svg-tile-inner ${
+                    isHovered ? 'is-active' : ''
+                  } ${isNearby ? 'is-nearby' : ''}`}
+                >
+                  <polygon
+                    points={hexPoints(radius)}
+                    className="memory-svg-border"
+                  />
+
+                  <image
+                    href={memory.src}
+                    x="0"
+                    y="0"
+                    width={radius * 2}
+                    height={radius * 2}
+                    preserveAspectRatio="xMidYMid slice"
+                    clipPath={`url(#clip-${memory.id})`}
+                  />
+
+                  <g
+                    className="memory-svg-caption"
+                    clipPath={`url(#clip-${memory.id})`}
+                  >
+                    <rect
+                      x="0"
+                      y={radius * 0.55}
+                      width={radius * 2}
+                      height={radius}
+                      fill="url(#memory-caption-gradient)"
+                    />
+
+                    {lines.map((line, lineIndex) => (
+                      <text
+                        key={lineIndex}
+                        x={radius}
+                        y={
+                          radius * 1.42 +
+                          lineIndex *
+                            (memory.featured ? 16 : 13)
+                        }
+                        textAnchor="middle"
+                        className="memory-svg-caption-text"
+                      >
+                        {line}
+                      </text>
+                    ))}
+                  </g>
+
+                  <polygon
+                    points={hexPoints(radius)}
+                    className="memory-svg-outline"
+                  />
+                </g>
+              </g>
+            );
+          })}
+        </g>
+      </svg>
+    </div>
+  );
+}
