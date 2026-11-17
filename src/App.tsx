@@ -84,7 +84,10 @@ function App() {
     setLightReveal(true);
     window.setTimeout(() => setLightsOn(true), 1800);
   };
-  const showRandomMemory = () => setRandomMemory(Math.floor(Math.random() * galleryMemories.length));
+  const showRandomMemory = () =>
+  setRandomMemory(
+    Math.floor(Math.random() * galleryMemories.length)
+  );
 
   return <main>
     {!lightsOn && <section className={`dark-opening ${lightReveal ? 'dark-opening--revealing' : ''}`} aria-label="Turn on the lights">
