@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   ArrowLeft, ArrowRight, ArrowUp, Cake, Check, Crown, Gift, Heart,
-  LockKeyhole, Mail, Sparkles, Utensils, X, Zap,
+  LockKeyhole, Mail, Sparkles, Utensils, X, Zap, Music2, Pause,
 } from 'lucide-react';
 import { photos, temporaryMemories } from '@/data/photos';
 
@@ -55,6 +55,26 @@ function App() {
   const [letterOpen, setLetterOpen] = useState(false);
   const [pandaMessage, setPandaMessage] = useState('');
   const [leaderBadge, setLeaderBadge] = useState(false);
+  const [musicPlaying, setMusicPlaying] = useState(false);
+const audioRef = useRef<HTMLAudioElement | null>(null);
+
+const toggleMusic = async () => {
+  const audio = audioRef.current;
+  if (!audio) return;
+
+  if (audio.paused) {
+    try {
+      await audio.play();
+      setMusicPlaying(true);
+    } catch (error) {
+      console.error('Music playback failed:', error);
+      setMusicPlaying(false);
+    }
+  } else {
+    audio.pause();
+    setMusicPlaying(false);
+  }
+};
   const [streakOpen, setStreakOpen] = useState(false);
   const [randomMemory, setRandomMemory] = useState<number | null>(null);
   const [lightbox, setLightbox] = useState<number | null>(null);
@@ -104,6 +124,23 @@ function App() {
     </section>}
 
     {opened && <>
+      <audio
+  ref={audioRef}
+  src={`${import.meta.env.BASE_URL}assets/music/birthday-tune.mp3`}
+  loop
+  preload="none"
+  onPlay={() => setMusicPlaying(true)}
+  onPause={() => setMusicPlaying(false)}
+/>
+
+<button
+  className={`music-button ${musicPlaying ? 'music-button--playing' : ''}`}
+  onClick={toggleMusic}
+  aria-label={musicPlaying ? 'Pause birthday music' : 'Play birthday music'}
+  title={musicPlaying ? 'Pause music' : 'Play birthday music'}
+>
+  {musicPlaying ? <Pause size={18} /> : <Music2 size={18} />}
+</button>
       <header className="site-nav"><a className="brand" href="#top"><span className="brand-mark">P</span><span>Priyanshi <em>20</em></span></a><nav><a href="#story">The story</a><a href="#memories">Memories</a><a href="#letter">The letter</a></nav><button className="nav-panda" onClick={showPandaMessage} aria-label="Ask the panda"><span>●</span></button></header>
 
       <section className="cake-section" id="top">
