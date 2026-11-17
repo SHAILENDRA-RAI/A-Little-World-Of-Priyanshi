@@ -703,3 +703,162 @@ p { font-size: 16px; line-height: 1.7; }
     margin-top: 15px;
   }
 }
+
+/* =========================================
+   EXPANDED HONEYCOMB MEMORY GALLERY
+   ========================================= */
+
+.memory-wall {
+  grid-auto-flow: row dense;
+  perspective: 1000px;
+}
+
+/* Honeycomb cards: only the additional 46 photos */
+.memory-photo--honeycomb {
+  grid-column: span 2;
+  position: relative;
+  isolation: isolate;
+  min-width: 0;
+  aspect-ratio: .94 / 1;
+  padding: 0;
+  overflow: hidden;
+  border: 5px solid #fff8f0;
+  background: #f3e8de;
+  box-shadow: 0 12px 28px #12090766;
+  clip-path: polygon(
+    25% 3%, 75% 3%, 100% 50%,
+    75% 97%, 25% 97%, 0 50%
+  );
+  animation: honeycomb-float 5.5s ease-in-out infinite;
+  transition: transform .4s ease, filter .4s ease;
+}
+
+/* Different tilts */
+.memory-photo--honeycomb:nth-child(3n) {
+  rotate: -2deg;
+}
+
+.memory-photo--honeycomb:nth-child(3n + 1) {
+  rotate: 1.5deg;
+}
+
+.memory-photo--honeycomb:nth-child(5n) {
+  margin-top: 22px;
+}
+
+/* Photo */
+.memory-photo--honeycomb img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: cover;
+  transition: transform .65s ease;
+}
+
+/* Caption */
+.memory-photo--honeycomb span {
+  position: absolute;
+  bottom: 17%;
+  left: 8%;
+  right: 8%;
+  z-index: 2;
+  margin: 0;
+  padding: 8px;
+  color: white;
+  font-family: Nunito, sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  text-align: center;
+  opacity: 0;
+  background: linear-gradient(transparent, #21120fc9);
+  transition: opacity .3s ease;
+}
+
+/* Water-like cursor light */
+.memory-photo--honeycomb::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
+    #ffffff85,
+    #f5b9bf45 20%,
+    transparent 55%
+  );
+  mix-blend-mode: screen;
+  transition: opacity .3s ease;
+}
+
+/* Hover zoom */
+.memory-photo--honeycomb:hover {
+  z-index: 5;
+  transform: translateY(-8px) scale(1.12);
+  filter: saturate(1.1);
+  box-shadow: 0 22px 45px #0009;
+}
+
+.memory-photo--honeycomb:hover img {
+  transform: scale(1.15);
+}
+
+.memory-photo--honeycomb:hover span,
+.memory-photo--honeycomb:hover::after {
+  opacity: 1;
+}
+
+/* Gentle floating */
+@keyframes honeycomb-float {
+  0%, 100% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: 0 -7px;
+  }
+}
+
+/* Tablet */
+@media (max-width: 1000px) {
+  .memory-wall {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+
+  .memory-photo--honeycomb {
+    grid-column: span 2;
+  }
+}
+
+/* Mobile */
+@media (max-width: 800px) {
+  .memory-wall {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px 9px;
+  }
+
+  .memory-photo--honeycomb {
+    grid-column: span 2;
+    aspect-ratio: .9 / 1;
+    border-width: 3px;
+    animation-duration: 7s;
+  }
+
+  .memory-photo--honeycomb span {
+    opacity: 1;
+    font-size: 9px;
+  }
+
+  .memory-photo--honeycomb:nth-child(5n) {
+    margin-top: 0;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .memory-photo--honeycomb {
+    animation: none;
+    transition: none;
+  }
+}
