@@ -105,7 +105,22 @@ export const photos: Record<PhotoKey, PhotoEntry> = {
   },
 };
 
-// All eight photographs available in the memory gallery
+// All 54 photographs in the memory gallery
+const extraMemoryFiles = [
+  "1.jpg", "2.jpg", "3.jpg", "4.jpg",
+  "5.png", "6.png", "7.png", "8.png", "9.png",
+  "10.png", "11.png", "12.png",
+  "13.jpg", "14.jpg", "15.png", "16.jpg",
+  "17.jpg", "18.jpg", "19.jpg", "20.jpg",
+  "21.jpg", "22.jpg", "23.jpg", "24.jpg",
+  "25.jpg", "26.jpg", "27.jpg", "28.jpg",
+  "29.jpg", "30.jpg", "31.jpg", "32.jpg",
+  "33.jpg", "34.jpg", "35.jpg", "36.jpg",
+  "37.jpg", "38.jpg", "39.jpg", "40.jpg",
+  "41.jpg", "42.jpg", "43.jpg", "44.jpg",
+  "45.jpg", "46.jpg"
+];
+
 export const temporaryMemories = [
   photos.hero,
   photos.leader,
@@ -115,8 +130,20 @@ export const temporaryMemories = [
   photos.friendship,
   photos.hackathon,
   photos.specialDuo,
+
+  ...extraMemoryFiles.map((filename, index) => ({
+    key: `extra-${index + 1}`,
+    id: `extra-memory-${index + 1}`,
+    src: asset(filename),
+    caption: `Little moment ${String(index + 1).padStart(2, "0")}`,
+    alt: `Priyanshi photo ${index + 1}`,
+    section: "memories",
+    temporary: false,
+  })),
 ].map((photo, index) => ({
-  id: `memory-${String(index + 1).padStart(2, '0')}`,
+  id: "id" in photo
+    ? photo.id
+    : `featured-memory-${String(index + 1).padStart(2, "0")}`,
   src: photo.src,
   caption: photo.caption,
   alt: photo.alt,
