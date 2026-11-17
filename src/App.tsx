@@ -176,6 +176,11 @@ function App() {
     <em>Your Hackathon Teammate & Panda's Official Friend. 🐼</em>
   </p>
 
+</div></div>
+<div className="envelope-flap" />
+<div className="wax-seal">
+  <Heart size={17} fill="currentColor" />
+</div>
 </div></section>
 
       <section className="wish-section"><div className="wish-card"><span className="eyebrow">A birthday wish from Shailendra</span><h2>HEY, PRIYANSHI!</h2><p>I hope this year brings you everything you’ve been working for.</p><p>More achievements. Bigger opportunities. New adventures. Crazy hackathons. Unlimited food (obviously). And countless reasons to smile.</p><p>May you continue leading teams, winning hearts, achieving dreams and being the adorable little panda you are.</p><p>Never stop being kind. Never stop being ambitious. And never stop being YOU.</p><strong>WISHING YOU THE HAPPIEST 20TH BIRTHDAY!</strong><small>17.11.2026</small><div className="wish-signature">With lots of love and appreciation,<br /><em>Shailendra Rai</em></div></div></section>
