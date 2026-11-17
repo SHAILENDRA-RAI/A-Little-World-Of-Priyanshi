@@ -94,7 +94,14 @@ function App() {
       </div></section>
 
       <section className="timeline-section"><div className="timeline-intro"><SectionTitle eyebrow="Our little story" title="Some of the best people enter your life unexpectedly." copy="A scrapbook of the chapters, the chaos and the tiny connections that made this friendship feel like home." /><PandaDoodle mood="wave" /></div><div className="timeline">
-        <article className="timeline-entry"><div className="timeline-marker">01</div><div><span className="eyebrow">MNIT E-Summit · where it started</span><h3>Who knew one trip would introduce me to someone so important?</h3><p>I was there as a Campus Ambassador, and you accompanied the group to MNIT Jaipur. That trip began a friendship neither of us had planned for.</p><Placeholder label="Friendship photograph coming soon" /></div></article>
+        <article className="timeline-entry"><div className="timeline-marker">01</div><div><span className="eyebrow">MNIT E-Summit · where it started</span><h3>Who knew one trip would introduce me to someone so important?</h3><p>I was there as a Campus Ambassador, and you accompanied the group to MNIT Jaipur. That trip began a friendship neither of us had planned for.</p><figure className="timeline-memory-photo">
+  <img
+    className="timeline-photo"
+    src={photos.friendship.src}
+    alt={photos.friendship.alt}
+  />
+  <figcaption>{photos.friendship.caption}</figcaption>
+</figure></div></article>
         <article className="timeline-entry timeline-entry--dark"><div className="timeline-marker">02</div><div><span className="eyebrow">Hackathon partners</span><h3>One team. Countless ideas. Questionable sleep schedules.</h3><p>We worked through problem statements, PPTs, prototypes, brainstorming, last-minute changes and everything in between. Every hackathon gave me something new to learn. And somehow, you’re always the person leading the way.</p><img className="timeline-photo" src={photos.sih.src} alt={photos.sih.alt} /><div className="timeline-visual"><div className="code-lines"><i /><i /><i /><i /></div><span>build · present · repeat</span></div></div></article>
         <article className="timeline-entry timeline-entry--duo"><div className="timeline-marker">03</div><div><span className="eyebrow">The special duo</span><h3>One panda. One human. Double the chaos.</h3><p>Honestly, I still haven’t figured out who’s the actual panda here.</p><p>You have the panda energy. I have the questionable decisions. Together, we’re probably a team that shouldn’t be left unsupervised.</p><p>But somehow, we make it work. Officially certified: one of my favourite duos.</p><span className="handwritten timeline-annotation">Two humans? Under investigation.</span><Placeholder label="Special duo photograph coming soon" /><button className="streak-button" onClick={() => setStreakOpen(!streakOpen)}><Zap size={17} /> 154 day streak</button>{streakOpen && <div className="streak-reveal">154 days of snaps. Countless little moments. One friendship worth keeping.</div>}</div></article>
       </div></section>
