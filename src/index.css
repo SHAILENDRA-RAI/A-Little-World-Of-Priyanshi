@@ -862,3 +862,331 @@ p { font-size: 16px; line-height: 1.7; }
     transition: none;
   }
 }
+
+
+/* ============================================
+   PRIYANSHI MEMORY GALLERY
+   SCRAPBOOK + HONEYCOMB HYBRID
+============================================ */
+
+/* FEATURED SCRAPBOOK */
+
+.memory-featured-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: start;
+  gap: 42px 22px;
+  max-width: 1120px;
+  margin: 0 auto 105px;
+}
+
+.memory-featured {
+  min-width: 0;
+  padding: 11px 11px 43px;
+  background: #fff8f0;
+  border: 1px solid #ead9c9;
+  box-shadow: 0 16px 34px #12090766;
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform .45s ease, box-shadow .45s ease;
+  animation: scrapbook-arrive .7s both;
+}
+
+.memory-featured img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1.08;
+  object-fit: cover;
+  background: #f3e8de;
+  transition: transform .6s ease, filter .6s ease;
+}
+
+.memory-featured span {
+  display: block;
+  margin-top: 12px;
+  color: #4b2d28;
+  font-family: Caveat, cursive;
+  font-size: clamp(17px, 2vw, 23px);
+}
+
+.memory-featured:hover {
+  position: relative;
+  z-index: 4;
+  transform: translateY(-9px) rotate(0deg) scale(1.045);
+  box-shadow: 0 25px 50px #0008;
+}
+
+.memory-featured:hover img {
+  filter: saturate(1.12);
+  transform: scale(1.025);
+}
+
+.memory-featured--1 { grid-column: 1 / span 3; --tilt: -3deg; }
+.memory-featured--2 { grid-column: 5 / span 3; margin-top: 42px; --tilt: 2.5deg; }
+.memory-featured--3 { grid-column: 9 / span 3; --tilt: -2deg; }
+.memory-featured--4 { grid-column: 2 / span 3; margin-top: 15px; --tilt: 2deg; }
+.memory-featured--5 { grid-column: 6 / span 3; margin-top: 48px; --tilt: -2.5deg; }
+.memory-featured--6 { grid-column: 10 / span 3; margin-top: 4px; --tilt: 3deg; }
+.memory-featured--7 { grid-column: 3 / span 3; margin-top: 12px; --tilt: -2deg; }
+.memory-featured--8 { grid-column: 8 / span 3; margin-top: 35px; --tilt: 2deg; }
+
+
+/* HONEYCOMB INTRO */
+
+.honeycomb-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 0 auto 44px;
+  text-align: center;
+}
+
+.honeycomb-heading span {
+  color: #e9a4a9;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .24em;
+}
+
+.honeycomb-heading p {
+  margin: 0;
+  color: #fff8f0;
+  font-family: "DM Serif Display", serif;
+  font-size: clamp(22px, 3vw, 31px);
+}
+
+
+/* HONEYCOMB GRID */
+
+.memory-honeycomb {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 22px 12px;
+  align-items: center;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 14px 20px;
+}
+
+.memory-photo--honeycomb {
+  position: relative;
+  isolation: isolate;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  aspect-ratio: 1 / 1.12;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  background: #f3e8de;
+  border: 4px solid #f8eee4;
+  box-shadow: 0 10px 24px #12090770;
+
+  clip-path: polygon(
+    25% 2%,
+    75% 2%,
+    100% 50%,
+    75% 98%,
+    25% 98%,
+    0 50%
+  );
+
+  rotate: 0deg;
+  animation: honeycomb-drift 6s ease-in-out infinite;
+  transition: transform .4s ease, filter .4s ease;
+}
+
+.memory-photo--honeycomb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .65s ease, filter .5s ease;
+}
+
+
+/* CURSOR WATER RIPPLE */
+
+.memory-photo--honeycomb::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+
+  background: radial-gradient(
+    circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
+    #ffffffa8 0,
+    #f5b9bf70 13%,
+    #ffffff20 32%,
+    transparent 58%
+  );
+
+  mix-blend-mode: screen;
+  transition: opacity .25s ease;
+}
+
+
+/* HOVER CAPTION */
+
+.memory-photo--honeycomb span {
+  position: absolute;
+  z-index: 2;
+  right: 9%;
+  bottom: 17%;
+  left: 9%;
+  margin: 0;
+  padding: 18px 5px 8px;
+  color: #fffaf5;
+  font-family: Nunito, sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1.25;
+  text-align: center;
+  opacity: 0;
+
+  background: linear-gradient(
+    transparent,
+    #241512d9
+  );
+
+  transition: opacity .25s ease;
+}
+
+
+/* HOVER ZOOM */
+
+.memory-photo--honeycomb:hover {
+  z-index: 5;
+  transform: translateY(-7px) scale(1.09);
+  filter: saturate(1.12);
+  box-shadow: 0 22px 42px #000b;
+}
+
+.memory-photo--honeycomb:hover img {
+  transform: scale(1.16);
+}
+
+.memory-photo--honeycomb:hover::after,
+.memory-photo--honeycomb:hover span {
+  opacity: 1;
+}
+
+
+/* FLOATING ANIMATION */
+
+@keyframes honeycomb-drift {
+  0%, 100% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: 0 -5px;
+  }
+}
+
+@keyframes scrapbook-arrive {
+  from {
+    opacity: 0;
+    translate: 0 18px;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+
+/* TABLET */
+
+@media (max-width: 1000px) {
+  .memory-honeycomb {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 18px 9px;
+  }
+}
+
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+  .memory-featured-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 13px;
+    margin-bottom: 72px;
+  }
+
+  .memory-featured,
+  .memory-featured--1,
+  .memory-featured--2,
+  .memory-featured--3,
+  .memory-featured--4,
+  .memory-featured--5,
+  .memory-featured--6,
+  .memory-featured--7,
+  .memory-featured--8 {
+    grid-column: auto;
+    margin-top: 0;
+    padding: 7px 7px 31px;
+  }
+
+  .memory-featured:nth-child(even) {
+    margin-top: 26px;
+  }
+
+  .memory-featured span {
+    margin-top: 7px;
+    font-size: 17px;
+  }
+
+  .honeycomb-heading {
+    gap: 6px;
+    margin-bottom: 30px;
+  }
+
+  .honeycomb-heading p {
+    width: 100%;
+  }
+
+  .memory-honeycomb {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px 5px;
+    padding: 0 2px 10px;
+  }
+
+  .memory-photo--honeycomb {
+    border-width: 2px;
+    animation-duration: 7s;
+  }
+
+  .memory-photo--honeycomb span {
+    font-size: 8px;
+    opacity: 1;
+    bottom: 13%;
+  }
+}
+
+
+/* TOUCHSCREEN + ACCESSIBILITY */
+
+@media (hover: none) {
+  .memory-photo--honeycomb span {
+    opacity: 1;
+  }
+
+  .memory-photo--honeycomb::after {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .memory-featured,
+  .memory-photo--honeycomb {
+    animation: none;
+    transition: none;
+  }
+}
