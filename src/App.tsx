@@ -56,6 +56,10 @@ function App() {
   const [streakOpen, setStreakOpen] = useState(false);
   const [randomMemory, setRandomMemory] = useState<number | null>(null);
   const [lightbox, setLightbox] = useState<number | null>(null);
+  const galleryMemories = useMemo(
+  () => shuffleMemories(temporaryMemories),
+  []
+);
 
   const visibleMemory = randomMemory === null ? null : temporaryMemories[randomMemory];
   const currentMemory = lightbox === null ? null : temporaryMemories[lightbox];
