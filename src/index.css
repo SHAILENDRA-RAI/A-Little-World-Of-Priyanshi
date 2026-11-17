@@ -411,3 +411,116 @@ p { font-size: 16px; line-height: 1.7; }
     max-width: 250px;
   }
 }
+
+/* =====================================
+   FOODIE CARD - TEXT & PHOTO LAYOUT FIX
+===================================== */
+
+.personality-card--foodie {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Keep all descriptive text on the left */
+.personality-card--foodie .card-text {
+  position: relative;
+  z-index: 3;
+  width: 52%;
+  max-width: 52%;
+  padding-bottom: 100px;
+}
+
+.personality-card--foodie .card-text h3,
+.personality-card--foodie .card-text p {
+  max-width: 100%;
+}
+
+/* Keep Priyanshi's photo on the right */
+.personality-card--foodie img {
+  right: -3%;
+  bottom: -3%;
+  width: 65%;
+  height: 65%;
+  z-index: 1;
+  object-fit: contain;
+  object-position: bottom right;
+}
+
+/* Move the disclaimer to the empty bottom-left area */
+.personality-card--foodie .foodie-note {
+  left: 28px;
+  right: auto;
+  bottom: 28px;
+  z-index: 4;
+  max-width: 43%;
+  text-align: left;
+  transform: rotate(-3deg);
+}
+
+/* Mobile layout */
+@media (max-width: 800px) {
+  .personality-card--foodie .card-text {
+    width: 58%;
+    max-width: 58%;
+    padding-bottom: 115px;
+  }
+
+  .personality-card--foodie img {
+    right: -4%;
+    width: 68%;
+    height: 62%;
+  }
+
+  .personality-card--foodie .foodie-note {
+    left: 22px;
+    bottom: 24px;
+    max-width: 48%;
+    font-size: 18px;
+  }
+}
+
+/* LEADER CARD - LARGER PHOTO */
+.personality-card--leader img {
+  right: -5%;
+  bottom: -3%;
+  width: 70%;
+  height: 88%;
+  object-fit: contain;
+  object-position: bottom right;
+}
+
+/* Mobile adjustment */
+@media (max-width: 800px) {
+  .personality-card--leader img {
+    right: -3%;
+    width: 68%;
+    height: 78%;
+  }
+}
+
+/* KINDNESS CARD - ZOOM PHOTO TOWARDS UPPER RIGHT */
+
+.personality-card--kindness {
+  overflow: hidden;
+}
+
+.personality-card--kindness img {
+  right: -5%;
+  bottom: -3%;
+  width: 57%;
+  height: 80%;
+  object-fit: contain;
+  object-position: right bottom;
+  transform: scale(1.06);
+  transform-origin: right bottom;
+}
+
+/* Mobile adjustment */
+@media (max-width: 800px) {
+  .personality-card--kindness img {
+    right: -4%;
+    bottom: -2%;
+    width: 62%;
+    height: 72%;
+  }
+}
