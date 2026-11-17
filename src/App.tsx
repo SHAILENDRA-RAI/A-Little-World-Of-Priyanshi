@@ -72,8 +72,8 @@ function App() {
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') setLightbox(null);
-      if (lightbox !== null && event.key === 'ArrowRight') setLightbox((lightbox + 1) % temporaryMemories.length);
-      if (lightbox !== null && event.key === 'ArrowLeft') setLightbox((lightbox - 1 + temporaryMemories.length) % temporaryMemories.length);
+      if (lightbox !== null && event.key === 'ArrowRight') setLightbox((lightbox + 1) % galleryMemories.length);
+      if (lightbox !== null && event.key === 'ArrowLeft') setLightbox((lightbox - 1 + galleryMemories.length) % galleryMemories.length);
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
@@ -84,7 +84,7 @@ function App() {
     setLightReveal(true);
     window.setTimeout(() => setLightsOn(true), 1800);
   };
-  const showRandomMemory = () => setRandomMemory(Math.floor(Math.random() * temporaryMemories.length));
+  const showRandomMemory = () => setRandomMemory(Math.floor(Math.random() * galleryMemories.length));
 
   return <main>
     {!lightsOn && <section className={`dark-opening ${lightReveal ? 'dark-opening--revealing' : ''}`} aria-label="Turn on the lights">
@@ -293,7 +293,7 @@ function App() {
       <footer className="site-footer"><PandaDoodle mood="balloon" /><span className="eyebrow">The end, for now</span><h2>And that’s a little piece<br /><em>of your world.</em></h2><p>Happy 20th Birthday, Priyanshi.<br />Stay kind. Stay crazy. Keep leading. Keep eating.</p><p className="footer-final">The world is a little better with a panda like you in it.</p><div className="footer-credit">Made with friendship, appreciation & a little too much effort.<br /><strong>Designed & Developed by Shailendra Rai.</strong><br />For Priyanshi Jain.</div><button className="back-top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Back to the beginning <ArrowUp size={16} /></button><small>No pandas were harmed. Only one friend spent questionable amounts of time building this website.</small></footer>
 
       <button className="floating-panda" onClick={showPandaMessage} aria-label="Show a panda message"><span>●</span></button>{pandaMessage && <div className="panda-toast" role="status"><PandaDoodle mood="wave" /><span>{pandaMessage}</span><button onClick={() => setPandaMessage('')} aria-label="Close message"><X size={15} /></button></div>}
-      {lightbox !== null && currentMemory && <div className="lightbox" role="dialog" aria-modal="true" aria-label="Memory viewer"><button className="lightbox-close" onClick={() => setLightbox(null)} aria-label="Close"><X /></button><button className="lightbox-arrow lightbox-arrow--left" onClick={() => setLightbox((lightbox - 1 + temporaryMemories.length) % temporaryMemories.length)} aria-label="Previous"><ArrowLeft /></button><figure><img src={currentMemory.src} alt={currentMemory.alt} /><figcaption><span>{currentMemory.temporary ? 'temporary memory visual' : 'memory'}</span>{currentMemory.caption}</figcaption></figure><button className="lightbox-arrow lightbox-arrow--right" onClick={() => setLightbox((lightbox + 1) % temporaryMemories.length)} aria-label="Next"><ArrowRight /></button></div>}
+      {lightbox !== null && currentMemory && <div className="lightbox" role="dialog" aria-modal="true" aria-label="Memory viewer"><button className="lightbox-close" onClick={() => setLightbox(null)} aria-label="Close"><X /></button><button className="lightbox-arrow lightbox-arrow--left" onClick={() => setLightbox((lightbox - 1 + galleryMemories.length) % galleryMemories.length)} aria-label="Previous"><ArrowLeft /></button><figure><img src={currentMemory.src} alt={currentMemory.alt} /><figcaption><span>{currentMemory.temporary ? 'temporary memory visual' : 'memory'}</span>{currentMemory.caption}</figcaption></figure><button className="lightbox-arrow lightbox-arrow--right" onClick={() => setLightbox((lightbox + 1) % galleryMemories.length)} aria-label="Next"><ArrowRight /></button></div>}
     </>}
   </main>;
 }
