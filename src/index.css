@@ -665,3 +665,41 @@ p { font-size: 16px; line-height: 1.7; }
     right: -2%;
   }
 }
+
+/* MEMORY GALLERY - FIX LAST TWO PHOTOS */
+
+.memory-photo--7 {
+  grid-column: 3 / span 3;
+  margin-top: 20px;
+  transform: rotate(-3deg);
+}
+
+.memory-photo--8 {
+  grid-column: 8 / span 3;
+  margin-top: 20px;
+  transform: rotate(3deg);
+}
+
+/* Keep both final cards equally sized */
+.memory-photo--7,
+.memory-photo--8 {
+  width: 100%;
+  min-width: 0;
+  align-self: start;
+}
+
+.memory-photo--7 img,
+.memory-photo--8 img {
+  width: 100%;
+  aspect-ratio: 1 / 1.15;
+  object-fit: contain;
+}
+
+/* Mobile gallery */
+@media (max-width: 800px) {
+  .memory-photo--7,
+  .memory-photo--8 {
+    grid-column: span 6;
+    margin-top: 15px;
+  }
+}
