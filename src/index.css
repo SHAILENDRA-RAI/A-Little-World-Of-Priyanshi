@@ -1755,6 +1755,7 @@ p { font-size: 16px; line-height: 1.7; }
   margin: 45px auto;
   overflow: hidden;
   background: #30201c;
+  isolation: isolate;
 }
 
 .memory-svg-wall {
@@ -1771,36 +1772,49 @@ p { font-size: 16px; line-height: 1.7; }
 /* Individual tiles */
 
 .memory-svg-tile {
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M8 17h16l-2 10H10z' fill='%23f3b6ad' stroke='%23784b42' stroke-width='1.5'/%3E%3Cpath d='M8 17c0-3 3-4 5-2 1-4 6-4 7 0 2-2 4-1 4 2' fill='%23fff0dc' stroke='%23784b42' stroke-width='1.5'/%3E%3Cpath d='M16 11V6' stroke='%23d6a84f' stroke-width='2'/%3E%3Cpath d='M16 3c-2 2-2 3 0 4 2-1 2-2 0-4' fill='%23f4c95d'/%3E%3C/svg%3E") 16 16, pointer;
-
+  cursor: inherit;
   outline: none;
-  animation: memory-tile-enter .55s ease both;
+  animation: memory-tile-enter .7s ease both;
 }
 
-/* Animated inner hexagon */
+/* Smooth, fluid movement */
 
 .memory-svg-tile-inner {
   transform-box: fill-box;
   transform-origin: center;
 
   transition:
-    transform .32s cubic-bezier(.2,.8,.2,1),
-    filter .32s ease,
-    opacity .32s ease;
+    transform 750ms cubic-bezier(.22, 1, .36, 1),
+    filter 750ms ease,
+    opacity 750ms ease;
+
+  will-change: transform;
 }
 
-/* Active photo grows */
+/* Photo under cursor */
 
 .memory-svg-tile-inner.is-active {
-  transform: scale(1.17);
-  filter: brightness(1.08) saturate(1.12);
+  transform: scale(1.10);
+
+  filter:
+    brightness(1.08)
+    saturate(1.12)
+    drop-shadow(0 7px 12px rgba(0, 0, 0, .25));
 }
 
-/* Neighbouring photos shrink */
+/* Nearby photos respond gently */
 
 .memory-svg-tile-inner.is-nearby {
-  transform: scale(.86);
-  opacity: .88;
+  transform: scale(.96);
+  opacity: 1;
+  filter: brightness(1.02);
+}
+
+/* All other photos remain visible */
+
+.memory-svg-tile-inner:not(.is-active):not(.is-nearby) {
+  transform: scale(1);
+  opacity: 1;
 }
 
 /* Hexagon appearance */
@@ -1820,8 +1834,12 @@ p { font-size: 16px; line-height: 1.7; }
 
 .memory-svg-caption {
   opacity: 0;
-  transition: opacity .3s ease;
+  transition: opacity 450ms ease;
   pointer-events: none;
+}
+
+.memory-svg-tile-inner.is-active .memory-svg-caption {
+  opacity: 1;
 }
 
 .memory-svg-caption-text {
@@ -1831,16 +1849,14 @@ p { font-size: 16px; line-height: 1.7; }
   font-weight: 700;
 }
 
-.memory-svg-tile-inner.is-active .memory-svg-caption {
-  opacity: 1;
-}
+/* Keyboard accessibility */
 
 .memory-svg-tile:focus-visible .memory-svg-outline {
   stroke: #f3b6ad;
   stroke-width: 5;
 }
 
-/* Entry animation */
+/* Entrance animation */
 
 @keyframes memory-tile-enter {
   from {
@@ -1887,7 +1903,11 @@ p { font-size: 16px; line-height: 1.7; }
   }
 }
 
-/* Birthday cursors */
+/* ==========================================
+   BIRTHDAY CURSORS
+========================================== */
+
+/* Normal cursor: neon party hat */
 
 html,
 body,
@@ -1895,6 +1915,23 @@ button,
 a,
 [role="button"] {
   cursor: url("/A-Little-World-Of-Priyanshi/assets/cursors/party-hat-cursor.png") 12 10, auto;
+}
+
+/* Hover cursor: neon birthday cake */
+
+button:hover,
+a:hover,
+[role="button"]:hover,
+.memory-svg-tile:hover {
+  cursor: url("/A-Little-World-Of-Priyanshi/assets/cursors/birthday-cake-cursor.png") 12 10, pointer;
+}
+
+/* Text selection */
+
+input,
+textarea,
+[contenteditable="true"] {
+  cursor: text;
 }
 
 /* Hover: birthday cake */
