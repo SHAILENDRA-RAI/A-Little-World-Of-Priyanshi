@@ -20,6 +20,17 @@ const gratitudeLines = [
   'Thank you for making me laugh when I didn’t feel like smiling.', 'Thank you for being YOU.',
 ];
 
+function shuffleMemories<T>(items: T[]): T[] {
+  const shuffled = [...items];
+
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+
+  return shuffled;
+}
+
 function SectionTitle({ eyebrow, title, copy, light = false }: SectionTitleProps) {
   return <div className={`section-heading ${light ? 'section-heading--light' : ''}`}>
     <span className="eyebrow">{eyebrow}</span><h2>{title}</h2>{copy && <p>{copy}</p>}
